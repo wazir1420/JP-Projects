@@ -394,8 +394,8 @@ Widget grenContainer(double height, double width) {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          Color.fromARGB(255, 29, 160, 34),
-          Color.fromARGB(255, 224, 21, 7) // top Right part
+          const Color.fromARGB(255, 29, 160, 34),
+          const Color.fromARGB(255, 224, 21, 7) // top Right part
         ],
       ),
     ),
@@ -415,7 +415,7 @@ Widget redContainer(double height, double width) {
         begin: Alignment.bottomLeft,
         end: Alignment.topRight,
         colors: [
-          Color.fromARGB(255, 224, 21, 7),
+          const Color.fromARGB(255, 224, 21, 7),
           Colors.blue, // top Right part
         ],
       ),
