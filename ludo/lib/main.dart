@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:ludo/chess.dart';
+import 'package:ludo/ludo.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,8 +11,6 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: ChessBoard(),
-    );
+        debugShowCheckedModeBanner: false, home: LudoBoard());
   }
 }
