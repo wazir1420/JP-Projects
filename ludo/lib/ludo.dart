@@ -163,7 +163,14 @@ class LudoBoard extends StatelessWidget {
               customContainer(27, 27, const Color.fromARGB(255, 29, 160, 34)),
               customContainer(27, 27, const Color.fromARGB(255, 29, 160, 34)),
               customContainer(27, 27, const Color.fromARGB(255, 29, 160, 34)),
-              customContainer(27, 27, Colors.black87),
+              Container(
+                height: 27,
+                width: 27,
+                color: Colors.grey,
+                child: CustomPaint(
+                  painter: TrianglePainter(),
+                ),
+              ),
               customContainer(27, 27, Colors.blue),
               customContainer(27, 27, Colors.blue),
               customContainer(27, 27, Colors.blue),
@@ -394,8 +401,8 @@ Widget grenContainer(double height, double width) {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          const Color.fromARGB(255, 29, 160, 34),
-          const Color.fromARGB(255, 224, 21, 7) // top Right part
+          Color.fromARGB(255, 29, 160, 34),
+          Color.fromARGB(255, 224, 21, 7) // top Right part
         ],
       ),
     ),
@@ -415,10 +422,68 @@ Widget redContainer(double height, double width) {
         begin: Alignment.bottomLeft,
         end: Alignment.topRight,
         colors: [
-          const Color.fromARGB(255, 224, 21, 7),
+          Color.fromARGB(255, 224, 21, 7),
           Colors.blue, // top Right part
         ],
       ),
     ),
   ));
+}
+
+class TrianglePainter extends CustomPainter {
+  @override
+  void paint(Canvas canvas, Size size) {
+    // Define colors for each triangle
+    Paint topLeftPaint = Paint()..color = Colors.amber;
+    Paint topRightPaint = Paint()..color = Colors.blue;
+    Paint bottomLeftPaint = Paint()
+      ..color = const Color.fromARGB(255, 29, 160, 34);
+    Paint bottomRightPaint = Paint()
+      ..color = const Color.fromARGB(255, 224, 21, 7);
+
+    // Calculate center of the container
+    Offset topLeft = const Offset(0, 0);
+    Offset topRight = Offset(size.width, 0);
+    Offset bottomLeft = Offset(0, size.height);
+    Offset bottomRight = Offset(size.width, size.height);
+    Offset center = Offset(size.width / 2, size.height / 2);
+
+    // Top-left triangle
+    Path topLeftPath = Path();
+    topLeftPath.moveTo(topLeft.dx, topLeft.dy); // Top-left corner
+    topLeftPath.lineTo(center.dx, center.dy); // Center of the container
+    topLeftPath.lineTo(topRight.dx, topRight.dy); // Top-right corner
+    topLeftPath.close();
+    canvas.drawPath(topLeftPath, topLeftPaint);
+
+    // Top-right triangle
+    Path topRightPath = Path();
+    topRightPath.moveTo(topRight.dx, topRight.dy); // Top-right corner
+    topRightPath.lineTo(center.dx, center.dy); // Center of the container
+    topRightPath.lineTo(bottomRight.dx, bottomRight.dy); // Bottom-right corner
+    topRightPath.close();
+    canvas.drawPath(topRightPath, topRightPaint);
+
+    // Bottom-left triangle
+    Path bottomLeftPath = Path();
+    bottomLeftPath.moveTo(bottomLeft.dx, bottomLeft.dy); // Bottom-left corner
+    bottomLeftPath.lineTo(center.dx, center.dy); // Center of the container
+    bottomLeftPath.lineTo(topLeft.dx, topLeft.dy); // Top-left corner
+    bottomLeftPath.close();
+    canvas.drawPath(bottomLeftPath, bottomLeftPaint);
+
+    // Bottom-right triangle
+    Path bottomRightPath = Path();
+    bottomRightPath.moveTo(
+        bottomRight.dx, bottomRight.dy); // Bottom-right corner
+    bottomRightPath.lineTo(center.dx, center.dy); // Center of the container
+    bottomRightPath.lineTo(bottomLeft.dx, bottomLeft.dy); // Bottom-left corner
+    bottomRightPath.close();
+    canvas.drawPath(bottomRightPath, bottomRightPaint);
+  }
+
+  @override
+  bool shouldRepaint(covariant CustomPainter oldDelegate) {
+    return false;
+  }
 }
